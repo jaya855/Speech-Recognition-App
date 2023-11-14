@@ -13,20 +13,24 @@ function App() {
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
+
   const handleCopy = () => {
-    setCopied();
-    if(!textToCopy){
-      message.error('to text to copy');
-    }
-    else{
+    if (!transcript) {
+      message.error('No text to copy');
+    } else {
+      setTextToCopy(transcript);
+      setCopied(transcript);
+      
       message.success('Text copied to clipboard');
+      
     }
-    
   };
+  
+  
   const handleClear = () => {
     resetTranscript();
     if(!textToCopy){
-      message.error('no text to clear');
+      message.error('No text to clear');
     }
     else{
       message.success('Transcript cleared');
@@ -51,7 +55,7 @@ function App() {
           Speech to Text Converter
         </div>
         <div className=' shadow-2xl shadow-green-900 h-[90%] w-[100%] bg-slate-900 rounded-xl'>
-          <div className='h-[80%] w-[100%] overflow-auto text-white p-[1rem]' onClick={()=>{setTextToCopy(transcript)}}>
+          <div className='h-[80%] w-[100%] overflow-auto text-white p-[1rem]'>
             {transcript}
           </div>
       
